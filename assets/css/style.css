@@ -1,17 +1,22 @@
 /* ==========================================================
    청첩장 스타일 — 모바일 우선 (360–430px), 데스크톱은 중앙 컨테이너
+   톤: 따뜻한 오프화이트 + 절제된 포인트 컬러, 명조 제목 + 고딕 본문
    ========================================================== */
 
 :root {
   --bg: #FAF8F5;
   --surface: #FFFFFF;
-  --ink: #3A3530;        /* 본문 글자 */
+  --ink: #2F2B27;        /* 본문 글자 */
   --ink-soft: #6F655B;   /* 보조 글자 (대비 약 5.4:1) */
   --accent: #C9A27E;     /* 장식용 포인트 */
   --accent-ink: #8A6A4A; /* 글자용 포인트 (대비 약 4.9:1) */
-  --line: #E6DED3;
-  --radius: 14px;
+  --line: #E9E2D8;
+  --radius: 20px;
+  --radius-sm: 14px;
+  --shadow: 0 10px 30px rgba(70, 52, 34, 0.07);
   --page-max: 480px;
+  --serif: "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  --latin: "Cormorant Garamond", "Noto Serif KR", serif;
 }
 
 *,
@@ -21,7 +26,7 @@
 }
 
 html {
-  background: #EFEAE3;
+  background: #EDE8E1;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -63,7 +68,8 @@ button {
   padding-bottom: calc(24px + env(safe-area-inset-bottom));
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
-  box-shadow: 0 0 40px rgba(60, 45, 30, 0.08);
+  box-shadow: 0 0 60px rgba(60, 45, 30, 0.08);
+  overflow-x: clip;
 }
 
 .noscript {
@@ -73,6 +79,7 @@ button {
 
 /* ---------- 1. 커버 ---------- */
 .cover {
+  padding: calc(20px + env(safe-area-inset-top)) 16px 0;
   animation: fadeIn 1.2s ease both;
 }
 
@@ -81,31 +88,39 @@ button {
   height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
+  border-radius: 28px 28px 120px 120px;
+  box-shadow: var(--shadow);
 }
 
 .cover__text {
-  padding: 32px 24px 40px;
+  padding: 44px 24px 72px;
   text-align: center;
 }
 
 .cover__kicker {
   margin: 0;
-  font-size: 12px;
-  letter-spacing: 0.3em;
+  font-family: var(--latin);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em; /* 자간 때문에 치우치는 것 보정 */
   color: var(--accent-ink);
 }
 
 .cover__names {
-  margin: 12px 0 8px;
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  margin: 20px 0 18px;
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
   text-wrap: balance;
 }
 
 .cover__date {
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
+  letter-spacing: 0.08em;
   color: var(--ink-soft);
 }
 
@@ -116,35 +131,47 @@ button {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
 }
 
 /* ---------- 공통 섹션 ---------- */
 .section {
-  padding: 64px 24px;
+  padding: 72px 24px;
   text-align: center;
-  border-top: 1px solid var(--line);
 }
 
+/* 제목 위의 가는 장식선 */
 .section__title {
-  margin: 0 0 24px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  color: var(--accent-ink);
+  margin: 0 0 36px;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  color: var(--ink);
+}
+
+.section__title::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 36px;
+  margin: 0 auto 20px;
+  background: var(--accent);
 }
 
 .section__lead {
-  margin: -8px 0 20px;
+  margin: -12px 0 24px;
   font-size: 14px;
   color: var(--ink-soft);
 }
 
 .body {
-  margin: 0 0 16px;
-  font-size: 16px;
-  line-height: 1.9;
+  margin: 0 0 20px;
+  font-size: 15.5px;
+  line-height: 2;
+  color: #4A433C;
 }
 
 .body:last-child {
@@ -154,22 +181,23 @@ button {
 /* ---------- 2. 인사말 ---------- */
 .family {
   list-style: none;
-  margin: 28px 0 0;
-  padding: 0;
-  font-size: 15px;
+  margin: 40px 0 0;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--line);
+  font-size: 14.5px;
   color: var(--ink-soft);
 }
 
 .family li + li {
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 /* ---------- 3. 안내 ---------- */
 .notice {
-  padding: 24px 20px;
+  padding: 36px 24px;
   background: var(--surface);
-  border: 1px solid var(--line);
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .notice .body:last-child {
@@ -178,26 +206,30 @@ button {
 
 /* ---------- 4. 달력 + D-day ---------- */
 .cal__month {
-  margin: 0 0 12px;
-  font-size: 18px;
-  font-weight: 600;
+  margin: 0 0 16px;
+  font-family: var(--serif);
+  font-size: 17px;
+  letter-spacing: 0.08em;
 }
 
 .cal {
   width: 100%;
+  padding: 0;
   border-collapse: collapse;
   table-layout: fixed;
   font-size: 14px;
 }
 
 .cal th {
-  padding: 8px 0;
+  padding: 10px 0;
+  font-size: 12px;
   font-weight: 500;
   color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
 }
 
 .cal td {
-  height: 44px;
+  height: 46px;
   padding: 0;
   text-align: center;
   vertical-align: middle;
@@ -215,51 +247,61 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: var(--accent-ink);
   color: #FFFFFF;
   font-weight: 600;
+  box-shadow: 0 0 0 5px rgba(201, 162, 126, 0.22);
 }
 
 .dday {
-  margin-top: 28px;
-  padding: 20px;
+  margin-top: 36px;
+  padding: 28px 20px;
   background: var(--surface);
-  border: 1px solid var(--line);
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .dday__value {
   margin: 0;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-family: var(--latin);
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
   color: var(--accent-ink);
 }
 
 .dday__note {
-  margin: 4px 0 0;
-  font-size: 14px;
+  margin: 6px 0 0;
+  font-size: 13.5px;
   color: var(--ink-soft);
 }
 
 /* ---------- 5. 갤러리 ---------- */
+/* 2열 + 짝수 칸을 아래로 내려 잡지처럼 엇갈리게 */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding-bottom: 28px;
 }
 
 .gallery__btn {
   min-height: 44px;
   padding: 0;
   border: 0;
-  border-radius: 6px;
-  background: none;
+  border-radius: var(--radius-sm);
+  background: #EDE8E1;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.gallery__btn:nth-child(even) {
+  transform: translateY(28px);
 }
 
 .gallery__btn img {
@@ -267,6 +309,11 @@ button {
   height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery__btn:hover img {
+  transform: scale(1.04);
 }
 
 .lightbox {
@@ -334,27 +381,28 @@ button {
   text-align: center;
   color: #FFFFFF;
   font-size: 13px;
+  letter-spacing: 0.1em;
 }
 
 /* ---------- 6. 마음 전하실 곳 (아코디언) ---------- */
 .acc-wrap {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   text-align: left;
 }
 
 .acc {
   overflow: hidden;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
 }
 
 .acc__sum {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
+  min-height: 56px;
   padding: 0 16px;
   font-weight: 600;
   cursor: pointer;
@@ -377,7 +425,7 @@ button {
 
 .acc__list {
   margin: 0;
-  padding: 0 16px 12px;
+  padding: 0 18px 12px;
   list-style: none;
 }
 
@@ -386,7 +434,7 @@ button {
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 4px 12px;
-  padding: 12px 0;
+  padding: 14px 0;
   border-top: 1px solid var(--line);
 }
 
@@ -413,7 +461,7 @@ button {
 /* ---------- 7. 연락하기 ---------- */
 .contact {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -424,14 +472,16 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
 }
 
 .contact__name {
-  font-weight: 600;
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.04em;
 }
 
 .contact__btns {
@@ -452,30 +502,46 @@ button {
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  padding: 8px 16px;
-  border: 1px solid var(--accent-ink);
+  padding: 8px 18px;
+  border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
-  color: var(--accent-ink);
+  color: var(--ink);
   font: inherit;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn:hover {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
 }
 
 .btn--primary {
-  padding: 12px 28px;
+  padding: 13px 32px;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #FFFFFF;
+}
+
+.btn--primary:hover {
+  border-color: var(--accent-ink);
   background: var(--accent-ink);
   color: #FFFFFF;
 }
 
 /* ---------- 9. 푸터 ---------- */
 .footer {
-  padding: 48px 24px 16px;
+  margin: 0 16px;
+  padding: 56px 24px 40px;
+  border-top: 1px solid var(--line);
   text-align: center;
   color: var(--ink-soft);
-  font-size: 14px;
+  font-size: 13.5px;
 }
 
 .footer p {
@@ -483,6 +549,8 @@ button {
 }
 
 .footer__thanks {
+  margin-bottom: 8px !important;
+  font-family: var(--serif);
   font-size: 16px;
   color: var(--ink);
 }
@@ -490,19 +558,20 @@ button {
 /* ---------- 배경음악 토글 (기본 OFF) ---------- */
 .bgm {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: calc(32px + env(safe-area-inset-top));
+  right: 28px;
   z-index: 5;
   min-width: 44px;
   min-height: 44px;
-  padding: 8px 12px;
-  border: 1px solid rgba(58, 53, 48, 0.2);
+  padding: 8px 14px;
+  border: 0;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
   color: var(--ink);
   font: inherit;
   font-size: 12px;
   cursor: pointer;
+  box-shadow: 0 4px 14px rgba(40, 30, 20, 0.15);
 }
 
 /* ---------- 토스트 ---------- */
@@ -512,9 +581,9 @@ button {
   bottom: calc(24px + env(safe-area-inset-bottom));
   z-index: 200;
   max-width: calc(100% - 32px);
-  padding: 12px 20px;
+  padding: 12px 22px;
   border-radius: 999px;
-  background: rgba(58, 53, 48, 0.92);
+  background: rgba(47, 43, 39, 0.94);
   color: #FFFFFF;
   font-size: 14px;
   white-space: nowrap;
@@ -535,6 +604,21 @@ button {
   left: -9999px;
   top: 0;
   opacity: 0;
+}
+
+/* ---------- 스크롤 시 부드럽게 나타나기 (지원하는 브라우저만) ---------- */
+@supports (animation-timeline: view()) {
+  .section,
+  .footer {
+    animation: rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
+  }
 }
 
 /* ---------- 포커스 표시 (키보드 접근성) ---------- */

@@ -200,7 +200,7 @@
   }
 
   /* ---------- 5. 갤러리 + 라이트박스 ---------- */
-  var gallery = C.gallery || [];
+  var gallery = []; /* render() 에서 gallery.json 을 읽어 채웁니다 */
   var lb = { el: null, index: 0, opener: null, touchX: null };
 
   function showSlide(i) {
@@ -491,6 +491,17 @@
   }
 
   /* ---------- 조립 ---------- */
+  /* JSON 파일 읽기. 실패(파일 없음, file:// 등)하면 null */
+  function loadJSON(url) {
+    if (!url) return Promise.resolve(null);
+    return fetch(url, { cache: "no-cache" })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        return res.json();
+      })
+      .catch(function () { return null; });
+  }
+
   function render() {
     var wd = isYMD(C.wedding.date) ? parseYMD(C.wedding.date) : null;
 
@@ -511,5 +522,12 @@
       });
   }
 
-  render();
+  Promise.all([
+    loadJSON(C.galleryFile),
+    C.showAccounts ? loadJSON(C.accountsFile) : Promise.resolve(null),
+  ]).then(function (data) {
+    gallery = Array.isArray(data[0]) ? data[0] : [];
+    C.accounts = data[1] || { groom: [], bride: [] };
+    render();
+  });
 })();

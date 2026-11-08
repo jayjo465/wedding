@@ -1,0 +1,26 @@
+[
+  {
+    "src": "./assets/img/gallery/gallery-01.webp",
+    "alt": "웨딩 사진 1"
+  },
+  {
+    "src": "./assets/img/gallery/gallery-02.webp",
+    "alt": "웨딩 사진 2"
+  },
+  {
+    "src": "./assets/img/gallery/gallery-03.webp",
+    "alt": "웨딩 사진 3"
+  },
+  {
+    "src": "./assets/img/gallery/gallery-04.webp",
+    "alt": "웨딩 사진 4"
+  },
+  {
+    "src": "./assets/img/gallery/gallery-05.webp",
+    "alt": "웨딩 사진 5"
+  },
+  {
+    "src": "./assets/img/gallery/gallery-06.webp",
+    "alt": "웨딩 사진 6"
+  }
+]

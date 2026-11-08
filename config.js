@@ -44,15 +44,9 @@ window.WEDDING_CONFIG = {
     "저희는 가까운 가족들과 함께 조용히 결혼식을 올리려 합니다.\n\n" +
     "마음 써 주신 뜻 깊이 감사드리며, 따뜻한 축복으로 함께해 주시면 더없이 기쁘겠습니다.",
 
-  /* 갤러리 — 이미지는 WebP 권장, width/height 는 main.js 에서 800x1067 로 고정 */
-  gallery: [
-    { src: "./assets/img/gallery-01.webp", alt: "웨딩 사진 1" },
-    { src: "./assets/img/gallery-02.webp", alt: "웨딩 사진 2" },
-    { src: "./assets/img/gallery-03.webp", alt: "웨딩 사진 3" },
-    { src: "./assets/img/gallery-04.webp", alt: "웨딩 사진 4" },
-    { src: "./assets/img/gallery-05.webp", alt: "웨딩 사진 5" },
-    { src: "./assets/img/gallery-06.webp", alt: "웨딩 사진 6" },
-  ],
+  /* 갤러리 — assets/img/gallery/ 폴더에 사진을 넣고 `python3 scripts/update-gallery.py` 를 실행하면
+     assets/data/gallery.json 이 갱신되어 자동으로 보입니다. 이미지는 WebP 권장 (3:4 비율) */
+  galleryFile: "./assets/data/gallery.json",
 
   /* 연락처 */
   contacts: {
@@ -63,10 +57,8 @@ window.WEDDING_CONFIG = {
   /* 마음 전하실 곳 — 기본값 false: 계좌 대신 "개별 연락" 안내와 연락하기 버튼만 보여 줍니다.
      true 로 바꾸면 아래 accounts 목록이 아코디언으로 나옵니다. 공개 저장소이므로 실제 계좌는 넣지 마세요. */
   showAccounts: false,
-  accounts: {
-    groom: [{ bank: "○○은행", number: "000-000-000000", owner: "[신랑 이름]" }],
-    bride: [{ bank: "○○은행", number: "000-000-000000", owner: "[신부 이름]" }],
-  },
+  /* 계좌 목록은 별도 파일에서 불러옵니다 (showAccounts 가 true 일 때만 읽음) */
+  accountsFile: "./assets/data/accounts.json",
 
   /* 배경음악 — src 를 비워 두면 토글 버튼이 나타나지 않습니다. 기본값은 항상 OFF(자동재생 없음) */
   bgm: { src: "" },

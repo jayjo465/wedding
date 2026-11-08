@@ -5,14 +5,21 @@
 ```
 wedding/
 ├── index.html          # 뼈대 + OG/SEO 메타 태그
-├── config.js           # 모든 문구와 데이터 (여기만 수정)
+├── config.js           # 문구와 설정 (여기만 수정)
 ├── 404.html            # 없는 주소로 들어왔을 때 보이는 페이지 (index.html로 돌아가는 링크)
 ├── .nojekyll           # GitHub Pages의 Jekyll 처리를 끄는 빈 파일 (지우지 마세요)
 ├── README.md
+├── scripts/
+│   └── update-gallery.py   # 갤러리 폴더 → gallery.json 목록 생성
 └── assets/
     ├── css/style.css
     ├── js/main.js
-    └── img/            # cover.webp, gallery-01~06.webp, og-image.jpg, favicon.svg
+    ├── data/
+    │   ├── gallery.json    # 갤러리 사진 목록 (스크립트가 자동 생성)
+    │   └── accounts.json   # 계좌 목록 (showAccounts: true 일 때만 읽음)
+    └── img/
+        ├── gallery/        # 갤러리 사진을 넣는 폴더
+        └── cover.webp, og-image.jpg, favicon.svg
 ```
 
 > 현재 이미지, 이름, 날짜, 전화번호, 계좌번호는 모두 **샘플 값**입니다. 실제 정보로 바꾼 뒤 배포하세요.
@@ -42,7 +49,7 @@ python3 -m http.server 8000
 # 브라우저에서 http://localhost:8000/wedding/ 열기 (개발자 도구에서 모바일 보기 권장)
 ```
 
-저장소명을 `wedding`이 아닌 다른 이름으로 만들었다면 폴더 이름과 주소의 `wedding` 부분을 그 이름으로 바꿔 확인하세요. `file://`로 직접 열면 클립보드 등 일부 기능이 동작하지 않을 수 있습니다.
+저장소명을 `wedding`이 아닌 다른 이름으로 만들었다면 폴더 이름과 주소의 `wedding` 부분을 그 이름으로 바꿔 확인하세요. `file://`로 직접 열면 갤러리와 계좌 JSON을 불러오지 못하고(`fetch`는 HTTP가 필요합니다) 클립보드 등 일부 기능도 동작하지 않으니, 꼭 위처럼 서버로 여세요.
 
 ## 1. config.js 수정하기
 
@@ -55,10 +62,10 @@ python3 -m http.server 8000
 | `wedding.date` | `YYYY-MM-DD` 형식. 달력, D-day, 커버 날짜가 자동 계산됩니다 |
 | `wedding.showTime` / `showVenue` | `false`면 시간과 장소를 공개하지 않습니다 (기본 `false`) |
 | `greeting` / `notice` | 인사말과 안내 문구. 빈 줄은 문단 구분, 한 줄 바꿈은 줄바꿈 |
-| `gallery` | 갤러리 이미지 경로 배열. 항목을 추가하거나 빼면 됩니다 (`./assets/img/...` 상대 경로) |
+| `galleryFile` | 갤러리 목록 파일 경로 (기본 `./assets/data/gallery.json`). 아래 "이미지 교체하기" 참고 |
 | `contacts` | 신랑/신부 전화번호 (공개 저장소이므로 샘플 값 유지 권장) |
 | `showAccounts` | 기본 `false`: 계좌 대신 개별 연락 안내 + 연락하기 버튼. `true`로 바꾸면 `accounts` 목록이 아코디언으로 보입니다. 실제 계좌는 넣지 마세요 |
-| `accounts` | 신랑측/신부측 계좌 목록 (샘플 값) |
+| `accountsFile` | 계좌 목록 파일 경로 (기본 `./assets/data/accounts.json`). `showAccounts`가 `true`일 때만 읽습니다. 신랑측/신부측 `bank`, `number`, `owner` 항목이며 지금은 샘플 값입니다 |
 | `bgm.src` | 배경음악 파일 경로. 비워 두면 토글 버튼이 나타나지 않습니다. 켜더라도 기본은 OFF이고 자동재생하지 않습니다 |
 | `labels` | 버튼과 섹션 제목 등 모든 고정 문구 |
 
@@ -66,18 +73,22 @@ python3 -m http.server 8000
 
 ## 2. 이미지 교체하기
 
-모든 이미지는 `assets/img/`에 같은 파일명으로 덮어쓰면 됩니다.
+커버, OG 이미지, 파비콘은 `assets/img/`에 같은 파일명으로 덮어쓰면 됩니다. 갤러리는 폴더에 넣는 방식입니다.
 
 | 파일 | 권장 규격 | 용도 |
 | --- | --- | --- |
 | `cover.webp` | 1200×1600 (3:4) | 커버 사진 |
-| `gallery-01.webp` … | 800×1067 (3:4) | 갤러리 썸네일과 확대 보기 |
+| `gallery/` 폴더의 사진들 | 800×1067 (3:4) | 갤러리 썸네일과 확대 보기 |
 | `og-image.jpg` | 1200×630 이상 (약 1.91:1) | 카카오톡/SNS 공유 미리보기 |
 | `favicon.svg` | 정사각형 | 브라우저 탭 아이콘 |
 
 - 규격을 지키면 `width`/`height` 속성과 맞아 레이아웃이 밀리지 않습니다 (CLS 방지). 다른 비율을 쓰려면 `main.js`의 갤러리 `width: 800, height: 1067`과 커버 `1200 × 1600`, CSS의 `aspect-ratio`를 함께 바꾸세요.
 - WebP 변환 예시 (macOS): `cwebp -q 80 input.jpg -o cover.webp`
-- 사진을 추가하려면 파일을 넣고 `config.js`의 `gallery`에 `{ src: "./assets/img/gallery-07.webp", alt: "웨딩 사진 7" }`를 추가합니다.
+- **갤러리 사진 추가/삭제**: 사진을 `assets/img/gallery/`에 넣거나 빼고, `wedding` 폴더에서 아래 명령을 한 번 실행합니다. `assets/data/gallery.json`이 다시 만들어지고 페이지에 반영됩니다. 순서는 파일명 순서이므로 `gallery-01.webp`처럼 번호를 붙이면 편합니다. 지원 형식은 webp, jpg, jpeg, png, avif입니다.
+  ```bash
+  python3 scripts/update-gallery.py
+  ```
+  gallery.json도 함께 커밋해서 push해야 배포본에 반영됩니다.
 - 용량은 장당 200KB 안팎을 권장합니다. 카카오톡 인앱 브라우저에서 빠르게 열립니다.
 
 ## 3. GitHub Pages 배포
