@@ -8,19 +8,19 @@
 window.WEDDING_CONFIG = {
   /* 신랑 / 신부 */
   couple: {
-    groom: { name: "[신랑 이름]", role: "장남" },
-    bride: { name: "[신부 이름]", role: "장녀" },
+    groom: { name: "조지훈", role: "장남" },
+    bride: { name: "유희연", role: "차녀" },
   },
 
   /* 양가 부모님 — deceased: true 로 두면 성함 앞에 "故"가 붙습니다 */
   parents: {
     groom: {
-      father: { name: "[아버지 성함]", deceased: false },
-      mother: { name: "[어머니 성함]", deceased: false },
+      father: { name: "조광재", deceased: false },
+      mother: { name: "임수현", deceased: false },
     },
     bride: {
-      father: { name: "[아버지 성함]", deceased: false },
-      mother: { name: "[어머니 성함]", deceased: false },
+      father: { name: "유종민", deceased: false },
+      mother: { name: "박소연", deceased: false },
     },
   },
 
@@ -64,7 +64,7 @@ window.WEDDING_CONFIG = {
   bgm: { src: "" },
 
   /* 공유 문구 / 푸터 */
-  shareText: "[신랑 이름] · [신부 이름]의 결혼 소식을 전합니다.",
+  shareText: "조지훈 · 유희연의 결혼 소식을 전합니다.",
   footer: "감사합니다. 행복하게 살겠습니다.",
 
   /* 섹션 제목과 버튼 문구 */
