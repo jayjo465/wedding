@@ -67,14 +67,28 @@ window.WEDDING_CONFIG = {
   shareText: "조지훈 · 유희연의 결혼 소식을 전합니다.",
   footer: "감사합니다. 행복하게 살겠습니다.",
 
+  /* 상단 메뉴바에 보일 짧은 이름 (섹션 id 기준). 비워 두면 섹션 제목을 그대로 씁니다 */
+  navLabels: {
+    greeting: "인사말",
+    notice: "안내",
+    gallery: "갤러리",
+    accounts: "마음 전하기",
+    contact: "연락",
+    share: "공유",
+  },
+
   /* 섹션 제목과 버튼 문구 */
   labels: {
     coverKicker: "WEDDING INVITATION",
     coverAlt: "커버 사진",
+    navLabel: "바로가기 메뉴",
     greetingTitle: "인사말",
     noticeTitle: "안내",
     galleryTitle: "갤러리",
     galleryOpen: "사진 크게 보기",
+    galleryPage: "사진 묶음",
+    galleryPrevPage: "이전 사진들",
+    galleryNextPage: "다음 사진들",
     close: "닫기",
     prev: "이전 사진",
     next: "다음 사진",

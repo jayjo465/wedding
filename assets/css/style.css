@@ -205,12 +205,87 @@ button {
 }
 
 /* ---------- 5. 갤러리 ---------- */
-/* 2열 + 짝수 칸을 아래로 내려 잡지처럼 엇갈리게 */
-.gallery {
+/* 한 화면에 4장(2×2), 옆으로 넘기는 슬라이더 */
+.gallery__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* 그림자가 잘리지 않도록 여백을 주고 음수 마진으로 상쇄 */
+  padding: 8px 0 20px;
+  margin: -8px 0 -20px;
+}
+
+.gallery__track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery__page {
+  flex: 0 0 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-content: start;
   gap: 10px;
-  padding-bottom: 28px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.gallery__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.gallery__dots {
+  display: flex;
+  align-items: center;
+}
+
+.gallery__dot {
+  position: relative;
+  width: 28px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.gallery__dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+  transform: translate(-50%, -50%);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.gallery__dot[aria-current="true"]::before {
+  background: var(--accent-ink);
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+.gallery__arrow {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--accent-ink);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.gallery__arrow:disabled {
+  color: var(--line);
+  cursor: default;
 }
 
 .gallery__btn {
@@ -222,10 +297,6 @@ button {
   overflow: hidden;
   cursor: pointer;
   box-shadow: var(--shadow);
-}
-
-.gallery__btn:nth-child(even) {
-  transform: translateY(28px);
 }
 
 .gallery__btn img {
@@ -545,9 +616,91 @@ button {
   }
 }
 
+/* ---------- 상단 메뉴바 (커버를 지나면 나타남) ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 50;
+  width: 100%;
+  max-width: var(--page-max);
+  padding-top: env(safe-area-inset-top);
+  background: rgba(250, 248, 245, 0.92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  transform: translate(-50%, -100%);
+  visibility: hidden;
+  transition: transform 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.nav.is-show {
+  transform: translate(-50%, 0);
+  visibility: visible;
+  transition: transform 0.3s ease, visibility 0s;
+}
+
+.nav__list {
+  display: flex;
+  justify-content: safe center;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 8px;
+}
+
+.nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav__link[aria-current="true"] {
+  color: var(--accent-ink);
+  font-weight: 600;
+  border-bottom-color: var(--accent-ink);
+}
+
+.nav__link:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+}
+
+/* ---------- 섹션 단위로 부드럽게 맞춰지는 스크롤 ----------
+   proximity: 섹션 시작 근처에서 멈출 때만 자석처럼 맞춰져서, 긴 섹션을 읽는 데 방해가 없습니다. */
+html {
+  scroll-padding-top: 48px;
+  scroll-behavior: smooth;
+}
+
+html:not(.is-locked) {
+  scroll-snap-type: y proximity;
+}
+
+.cover,
+.section,
+.footer {
+  scroll-snap-align: start;
+}
+
 /* ---------- 포커스 표시 (키보드 접근성) ---------- */
 .btn:focus-visible,
 .gallery__btn:focus-visible,
+.gallery__dot:focus-visible,
+.gallery__arrow:focus-visible,
 .acc__sum:focus-visible,
 .lightbox__close:focus-visible,
 .lightbox__nav:focus-visible,

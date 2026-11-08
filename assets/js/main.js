@@ -211,32 +211,102 @@
     else if (e.key === "ArrowRight") step(1);
   });
 
+  /* 한 화면에 4장(2×2)씩, 옆으로 넘기는 슬라이더 */
+  var PER_PAGE = 4;
+
   function renderGallery() {
     if (!gallery.length) return null;
+
+    var pageCount = Math.ceil(gallery.length / PER_PAGE);
+    var current = 0;
+
+    var pages = [];
+    for (var p = 0; p < pageCount; p++) {
+      pages.push(
+        h(
+          "div",
+          {
+            class: "gallery__page",
+            role: "group",
+            "aria-roledescription": "slide",
+            "aria-label": p + 1 + " / " + pageCount,
+          },
+          gallery.slice(p * PER_PAGE, (p + 1) * PER_PAGE).map(function (item, k) {
+            var i = p * PER_PAGE + k;
+            return h(
+              "button",
+              {
+                type: "button",
+                class: "gallery__btn",
+                "aria-label": L.galleryOpen + " " + (i + 1),
+                onclick: function (e) { openLightbox(i, e.currentTarget); },
+              },
+              [h("img", {
+                src: item.src,
+                alt: item.alt,
+                width: 800,
+                height: 1067,
+                loading: i < PER_PAGE ? "eager" : "lazy",
+                decoding: "async",
+              })]
+            );
+          })
+        )
+      );
+    }
+
+    var track = h("div", { class: "gallery__track" }, pages);
+
+    function goTo(i) {
+      var next = Math.max(0, Math.min(pageCount - 1, i));
+      track.scrollTo({ left: next * track.clientWidth, behavior: reducedMotion() ? "auto" : "smooth" });
+    }
+
+    var prevBtn = h("button", {
+      type: "button",
+      class: "gallery__arrow",
+      "aria-label": L.galleryPrevPage,
+      text: "‹",
+      onclick: function () { goTo(current - 1); },
+    });
+    var nextBtn = h("button", {
+      type: "button",
+      class: "gallery__arrow",
+      "aria-label": L.galleryNextPage,
+      text: "›",
+      onclick: function () { goTo(current + 1); },
+    });
+
+    var dots = pages.map(function (_, i) {
+      return h("button", {
+        type: "button",
+        class: "gallery__dot",
+        "aria-label": L.galleryPage + " " + (i + 1),
+        onclick: function () { goTo(i); },
+      });
+    });
+
+    function sync() {
+      current = Math.round(track.scrollLeft / (track.clientWidth || 1));
+      dots.forEach(function (d, i) {
+        if (i === current) d.setAttribute("aria-current", "true");
+        else d.removeAttribute("aria-current");
+      });
+      prevBtn.disabled = current <= 0;
+      nextBtn.disabled = current >= pageCount - 1;
+    }
+
+    track.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    sync();
+
+    var children = [track];
+    if (pageCount > 1) {
+      children.push(h("div", { class: "gallery__nav" }, [prevBtn, h("div", { class: "gallery__dots" }, dots), nextBtn]));
+    }
+
     return section("gallery", L.galleryTitle, [
-      h(
-        "div",
-        { class: "gallery" },
-        gallery.map(function (item, i) {
-          return h(
-            "button",
-            {
-              type: "button",
-              class: "gallery__btn",
-              "aria-label": L.galleryOpen + " " + (i + 1),
-              onclick: function (e) { openLightbox(i, e.currentTarget); },
-            },
-            [h("img", {
-              src: item.src,
-              alt: item.alt,
-              width: 800,
-              height: 1067,
-              loading: "lazy",
-              decoding: "async",
-            })]
-          );
-        })
-      ),
+      h("div", { class: "gallery", "aria-roledescription": "carousel", "aria-label": L.galleryTitle }, children),
     ]);
   }
 
@@ -432,6 +502,69 @@
       .catch(function () { return null; });
   }
 
+  /* ---------- 상단 메뉴바: 커버를 지나면 나타나고, 누르면 해당 섹션으로 부드럽게 이동 ---------- */
+  function reducedMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function renderNav() {
+    var sections = Array.prototype.slice.call(app.querySelectorAll("section.section"));
+    if (!sections.length) return;
+    var names = C.navLabels || {};
+
+    var links = sections.map(function (sec) {
+      var title = sec.querySelector(".section__title");
+      return h("a", {
+        class: "nav__link",
+        href: "#" + sec.id,
+        text: names[sec.id] || (title ? title.textContent : sec.id),
+        onclick: function (e) {
+          e.preventDefault();
+          sec.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });
+          if (history.replaceState) history.replaceState(null, "", "#" + sec.id);
+        },
+      });
+    });
+
+    var list = h("div", { class: "nav__list" }, links);
+    var nav = h("nav", { class: "nav", "aria-label": L.navLabel }, [list]);
+    document.body.appendChild(nav);
+
+    if (!("IntersectionObserver" in window)) {
+      nav.classList.add("is-show");
+      return;
+    }
+
+    /* 커버가 화면에서 사라지면 메뉴바 표시 */
+    var cover = app.querySelector(".cover");
+    if (cover) {
+      new IntersectionObserver(function (entries) {
+        nav.classList.toggle("is-show", !entries[0].isIntersecting);
+      }, { rootMargin: "-80px 0px 0px 0px" }).observe(cover);
+    } else {
+      nav.classList.add("is-show");
+    }
+
+    /* 화면 가운데에 걸린 섹션을 메뉴에서 강조 */
+    function setActive(id) {
+      links.forEach(function (a) {
+        var on = a.getAttribute("href") === "#" + id;
+        if (on) {
+          a.setAttribute("aria-current", "true");
+          list.scrollTo({ left: a.offsetLeft - (list.clientWidth - a.offsetWidth) / 2, behavior: "auto" });
+        } else {
+          a.removeAttribute("aria-current");
+        }
+      });
+    }
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) setActive(en.target.id);
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach(function (sec) { spy.observe(sec); });
+  }
+
   function render() {
     var wd = isYMD(C.wedding.date) ? parseYMD(C.wedding.date) : null;
 
@@ -449,6 +582,8 @@
       .forEach(function (node) {
         if (node) app.appendChild(node);
       });
+
+    renderNav();
   }
 
   Promise.all([
