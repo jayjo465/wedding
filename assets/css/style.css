@@ -204,58 +204,6 @@ button {
   margin-bottom: 0;
 }
 
-/* ---------- 4. 달력 + D-day ---------- */
-.cal__month {
-  margin: 0 0 16px;
-  font-family: var(--serif);
-  font-size: 17px;
-  letter-spacing: 0.08em;
-}
-
-.cal {
-  width: 100%;
-  padding: 0;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: 14px;
-}
-
-.cal th {
-  padding: 10px 0;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink-soft);
-  border-bottom: 1px solid var(--line);
-}
-
-.cal td {
-  height: 46px;
-  padding: 0;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.cal .sun {
-  color: #A3543F;
-}
-
-.cal .sat {
-  color: #3F6485;
-}
-
-.hl {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--accent-ink);
-  color: #FFFFFF;
-  font-weight: 600;
-  box-shadow: 0 0 0 5px rgba(201, 162, 126, 0.22);
-}
-
 /* ---------- 5. 갤러리 ---------- */
 /* 2열 + 짝수 칸을 아래로 내려 잡지처럼 엇갈리게 */
 .gallery {

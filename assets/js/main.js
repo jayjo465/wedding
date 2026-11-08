@@ -129,56 +129,6 @@
     return section("notice", L.noticeTitle, [h("div", { class: "notice" }, paragraphs(C.notice))]);
   }
 
-  /* ---------- 4. 달력 ---------- */
-  function renderCalendar(wd) {
-    if (!wd) return null;
-
-    var firstDow = weekday({ y: wd.y, m: wd.m, d: 1 });
-    var lastDay = new Date(Date.UTC(wd.y, wd.m, 0)).getUTCDate();
-
-    var thead = h("thead", null, [
-      h(
-        "tr",
-        null,
-        WEEK.map(function (w, i) {
-          return h("th", {
-            scope: "col",
-            class: i === 0 ? "sun" : i === 6 ? "sat" : null,
-            text: w,
-          });
-        })
-      ),
-    ]);
-
-    var rows = [];
-    var row = [];
-    var i;
-    for (i = 0; i < firstDow; i++) row.push(h("td"));
-    for (var d = 1; d <= lastDay; d++) {
-      var col = (firstDow + d - 1) % 7;
-      var label = d === wd.d ? h("span", { class: "hl", text: String(d) }) : String(d);
-      row.push(h("td", { class: col === 0 ? "sun" : col === 6 ? "sat" : null }, [label]));
-      if (row.length === 7) {
-        rows.push(row);
-        row = [];
-      }
-    }
-    if (row.length) {
-      while (row.length < 7) row.push(h("td"));
-      rows.push(row);
-    }
-
-    var tbody = h("tbody", null, rows.map(function (cells) {
-      return h("tr", null, cells);
-    }));
-    var table = h("table", { class: "cal", "aria-label": L.calendarTitle }, [thead, tbody]);
-
-    return section("calendar", L.calendarTitle, [
-      h("p", { class: "cal__month", text: wd.y + "년 " + wd.m + "월" }),
-      table,
-    ]);
-  }
-
   /* ---------- 5. 갤러리 + 라이트박스 ---------- */
   var gallery = []; /* render() 에서 gallery.json 을 읽어 채웁니다 */
   var lb = { el: null, index: 0, opener: null, touchX: null };
@@ -489,7 +439,6 @@
       renderCover(wd),
       renderGreeting(),
       renderNotice(),
-      renderCalendar(wd),
       renderGallery(),
       renderAccounts(),
       renderContact(),

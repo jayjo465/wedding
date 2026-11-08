@@ -73,7 +73,6 @@ window.WEDDING_CONFIG = {
     coverAlt: "커버 사진",
     greetingTitle: "인사말",
     noticeTitle: "안내",
-    calendarTitle: "예식 일정",
     galleryTitle: "갤러리",
     galleryOpen: "사진 크게 보기",
     close: "닫기",
