@@ -56,7 +56,7 @@ window.WEDDING_CONFIG = {
 
   /* 마음 전하실 곳 — 기본값 false: 계좌 대신 "개별 연락" 안내와 연락하기 버튼만 보여 줍니다.
      true 로 바꾸면 아래 accounts 목록이 아코디언으로 나옵니다. 공개 저장소이므로 실제 계좌는 넣지 마세요. */
-  showAccounts: false,
+  showAccounts: true,
   /* 계좌 목록은 별도 파일에서 불러옵니다 (showAccounts 가 true 일 때만 읽음) */
   accountsFile: "./assets/data/accounts.json",
 
