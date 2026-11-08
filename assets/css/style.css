@@ -15,8 +15,8 @@
   --radius-sm: 14px;
   --shadow: 0 10px 30px rgba(70, 52, 34, 0.07);
   --page-max: 480px;
-  --serif: "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
-  --latin: "Cormorant Garamond", "Noto Serif KR", serif;
+  --serif: "Gowun Batang", "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  --latin: "Cormorant Garamond", "Gowun Batang", serif;
 }
 
 *,
