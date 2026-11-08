@@ -17,6 +17,7 @@
   --page-max: 480px;
   --serif: "Gowun Batang", "Noto Serif KR", "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
   --latin: "Cormorant Garamond", "Gowun Batang", serif;
+  --script: "Pinyon Script", "Cormorant Garamond", serif; /* 커버 제목용 필기체 */
 }
 
 *,
@@ -38,7 +39,7 @@ html.is-locked body {
 
 body {
   margin: 0;
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: "SUIT Variable", "SUIT", "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   color: var(--ink);
   line-height: 1.75;
   word-break: keep-all;
@@ -77,57 +78,90 @@ button {
   text-align: center;
 }
 
-/* ---------- 1. 커버 ---------- */
+/* ---------- 1. 커버 (사진 전체 화면) ---------- */
 .cover {
-  padding: calc(20px + env(safe-area-inset-top)) 16px 0;
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 540px;
+  overflow: hidden;
+  color: #FFFFFF;
+  background: #14120F;
   animation: fadeIn 1.2s ease both;
 }
 
 .cover__img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 4;
+  height: 100%;
   object-fit: cover;
-  border-radius: 28px 28px 120px 120px;
-  box-shadow: var(--shadow);
+  object-position: 50% 60%;
 }
 
-.cover__text {
-  padding: 44px 24px 72px;
+/* 글자가 잘 보이도록 위·아래만 살짝 어둡게 */
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(10, 8, 6, 0.55) 0%, rgba(10, 8, 6, 0) 38%),
+    linear-gradient(to top, rgba(10, 8, 6, 0.6) 0%, rgba(10, 8, 6, 0) 30%);
+  pointer-events: none;
+}
+
+.cover__top,
+.cover__bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  padding: 0 24px;
   text-align: center;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.35);
 }
 
+.cover__top {
+  top: calc(12vh + env(safe-area-inset-top));
+}
+
+.cover__bottom {
+  bottom: calc(44px + env(safe-area-inset-bottom));
+}
+
+/* 영문 필기체 제목 (두 줄) */
 .cover__kicker {
   margin: 0;
-  font-family: var(--latin);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.42em;
-  text-indent: 0.42em; /* 자간 때문에 치우치는 것 보정 */
-  color: var(--accent-ink);
-}
-
-.cover__names {
-  margin: 20px 0 18px;
-  font-family: var(--serif);
-  font-size: 28px;
+  font-family: var(--script);
+  font-size: 56px;
   font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: 0.06em;
-  text-wrap: balance;
+  line-height: 1.05;
+  letter-spacing: 0;
 }
 
 .cover__date {
+  margin: 20px 0 0;
+  font-family: var(--serif);
+  font-size: 16px;
+  letter-spacing: 0.12em;
+}
+
+.cover__names {
   margin: 0;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+  text-wrap: balance;
 }
 
 .cover__meta {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
+  font-family: var(--serif);
   font-size: 14px;
-  color: var(--ink-soft);
+  letter-spacing: 0.08em;
 }
 
 @keyframes fadeIn {

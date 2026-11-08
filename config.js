@@ -79,7 +79,7 @@ window.WEDDING_CONFIG = {
 
   /* 섹션 제목과 버튼 문구 */
   labels: {
-    coverKicker: "WEDDING INVITATION",
+    coverKicker: "Wedding\nInvitation",
     coverAlt: "커버 사진",
     navLabel: "바로가기 메뉴",
     greetingTitle: "인사말",

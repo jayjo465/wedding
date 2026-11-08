@@ -85,23 +85,27 @@
 
   /* ---------- 1. 커버 ---------- */
   function renderCover(wd) {
-    var info = [
-      h("p", { class: "cover__kicker", text: L.coverKicker }),
+    /* 위쪽: 영문 필기체 제목 + 날짜 / 아래쪽: 이름 (사진 전체 화면 위에 겹쳐 표시) */
+    var top = [h("p", { class: "cover__kicker" }, [lines(L.coverKicker)])];
+    if (wd) top.push(h("p", { class: "cover__date", text: koreanDate(wd) }));
+
+    var bottom = [
       h("h1", { class: "cover__names", text: C.couple.groom.name + " · " + C.couple.bride.name }),
     ];
-    if (wd) info.push(h("p", { class: "cover__date", text: koreanDate(wd) }));
-    if (C.wedding.showTime) info.push(h("p", { class: "cover__meta", text: C.wedding.time }));
-    if (C.wedding.showVenue) info.push(h("p", { class: "cover__meta", text: C.wedding.venue }));
+    if (C.wedding.showTime) bottom.push(h("p", { class: "cover__meta", text: C.wedding.time }));
+    if (C.wedding.showVenue) bottom.push(h("p", { class: "cover__meta", text: C.wedding.venue }));
 
     return h("header", { class: "cover" }, [
       h("img", {
         class: "cover__img",
         src: "./assets/img/cover.webp",
         alt: L.coverAlt,
-        width: 1200,
-        height: 1600,
+        width: 959,
+        height: 1440,
+        fetchpriority: "high",
       }),
-      h("div", { class: "cover__text" }, info),
+      h("div", { class: "cover__top" }, top),
+      h("div", { class: "cover__bottom" }, bottom),
     ]);
   }
 
