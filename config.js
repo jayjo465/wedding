@@ -26,7 +26,7 @@ window.WEDDING_CONFIG = {
 
   /* 예식 정보 — showTime / showVenue 가 false 면 해당 정보는 공개하지 않습니다 */
   wedding: {
-    date: "2027-12-12", // 샘플 날짜 (YYYY-MM-DD)
+    date: "2026-12-11", // 샘플 날짜 (YYYY-MM-DD)
     showTime: false,
     time: "낮 12시",
     showVenue: false,
@@ -58,7 +58,7 @@ window.WEDDING_CONFIG = {
   bgm: { src: "" },
 
   /* 푸터 */
-  footer: "감사합니다. 행복하게 살겠습니다.",
+  footer: "낯선 땅 일본에서 만나 서로에게 기댈 곳이 된 두 사람입니다. 앞으로도 행복하게 살겠습니다. 함께 걸어 주셔서 고맙습니다.",
 
   /* 상단 메뉴바에 보일 짧은 이름 (섹션 id 기준). 비워 두면 섹션 제목을 그대로 씁니다 */
   navLabels: {
