@@ -79,18 +79,6 @@
     return new Date(Date.UTC(dt.y, dt.m - 1, dt.d)).getUTCDay();
   }
 
-  /* to - from (일 단위) */
-  function dayGap(from, to) {
-    return Math.round(
-      (Date.UTC(to.y, to.m - 1, to.d) - Date.UTC(from.y, from.m - 1, from.d)) / 86400000
-    );
-  }
-
-  function today() {
-    var t = new Date();
-    return { y: t.getFullYear(), m: t.getMonth() + 1, d: t.getDate() };
-  }
-
   function koreanDate(dt) {
     return dt.y + "년 " + dt.m + "월 " + dt.d + "일 " + WEEK[weekday(dt)] + "요일";
   }
@@ -141,7 +129,7 @@
     return section("notice", L.noticeTitle, [h("div", { class: "notice" }, paragraphs(C.notice))]);
   }
 
-  /* ---------- 4. 달력 + D-day ---------- */
+  /* ---------- 4. 달력 ---------- */
   function renderCalendar(wd) {
     if (!wd) return null;
 
@@ -185,17 +173,9 @@
     }));
     var table = h("table", { class: "cal", "aria-label": L.calendarTitle }, [thead, tbody]);
 
-    var diff = dayGap(today(), wd);
-    var value = diff > 0 ? "D-" + diff : diff === 0 ? "D-Day" : "D+" + (-diff);
-    var note = diff > 0 ? L.ddayBefore : diff === 0 ? L.ddayToday : L.ddayAfter;
-
     return section("calendar", L.calendarTitle, [
       h("p", { class: "cal__month", text: wd.y + "년 " + wd.m + "월" }),
       table,
-      h("div", { class: "dday" }, [
-        h("p", { class: "dday__value", text: value }),
-        h("p", { class: "dday__note", text: note }),
-      ]),
     ]);
   }
 

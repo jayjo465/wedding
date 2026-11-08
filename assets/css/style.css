@@ -256,30 +256,6 @@ button {
   box-shadow: 0 0 0 5px rgba(201, 162, 126, 0.22);
 }
 
-.dday {
-  margin-top: 36px;
-  padding: 28px 20px;
-  background: var(--surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.dday__value {
-  margin: 0;
-  font-family: var(--latin);
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.08em;
-  color: var(--accent-ink);
-}
-
-.dday__note {
-  margin: 6px 0 0;
-  font-size: 13.5px;
-  color: var(--ink-soft);
-}
-
 /* ---------- 5. 갤러리 ---------- */
 /* 2열 + 짝수 칸을 아래로 내려 잡지처럼 엇갈리게 */
 .gallery {

@@ -59,7 +59,7 @@ python3 -m http.server 8000
 | --- | --- |
 | `couple` | 신랑/신부 이름과 호칭(장남, 장녀 등) |
 | `parents` | 양가 부모님 성함. `deceased: true`로 두면 성함 앞에 「故」가 붙습니다 |
-| `wedding.date` | `YYYY-MM-DD` 형식. 달력, D-day, 커버 날짜가 자동 계산됩니다 |
+| `wedding.date` | `YYYY-MM-DD` 형식. 달력과 커버 날짜가 자동 계산됩니다 |
 | `wedding.showTime` / `showVenue` | `false`면 시간과 장소를 공개하지 않습니다 (기본 `false`) |
 | `greeting` / `notice` | 인사말과 안내 문구. 빈 줄은 문단 구분, 한 줄 바꿈은 줄바꿈 |
 | `galleryFile` | 갤러리 목록 파일 경로 (기본 `./assets/data/gallery.json`). 아래 "이미지 교체하기" 참고 |
