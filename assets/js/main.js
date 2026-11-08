@@ -360,13 +360,10 @@
   }
 
   /* ---------- 6. 마음 전하실 곳 ---------- */
-  /* 기본 방식: 계좌 대신 개별 연락 안내 + 연락하기 버튼 (#contact로 이동) */
+  /* 기본 방식: 계좌 대신 개별 연락 안내 문구만 표시 */
   function renderAccountsNote() {
     return section("accounts", L.accountsTitle, [
       h("p", { class: "section__lead", text: L.accountsNote }),
-      h("div", { class: "share" }, [
-        h("a", { class: "btn btn--primary", href: "#contact", text: L.accountsContact }),
-      ]),
     ]);
   }
 
@@ -409,53 +406,6 @@
           ]);
         })
       ),
-    ]);
-  }
-
-  /* ---------- 7. 연락하기 ---------- */
-  function renderContact() {
-    var people = [C.contacts.groom, C.contacts.bride];
-    return section("contact", L.contactTitle, [
-      h(
-        "ul",
-        { class: "contact" },
-        people.map(function (p) {
-          var tel = String(p.phone).replace(/[^0-9+]/g, "");
-          return h("li", { class: "contact__row" }, [
-            h("span", { class: "contact__name", text: p.name }),
-            h("span", { class: "contact__btns" }, [
-              h("a", { class: "btn", href: "tel:" + tel, "aria-label": p.name + "에게 전화하기", text: L.call }),
-              h("a", { class: "btn", href: "sms:" + tel, "aria-label": p.name + "에게 문자 보내기", text: L.text }),
-            ]),
-          ]);
-        })
-      ),
-    ]);
-  }
-
-  /* ---------- 8. 공유하기 (Web Share API → 미지원 시 링크 복사) ---------- */
-  function copyLink() {
-    copyWithToast(location.href, L.linkCopied);
-  }
-
-  function onShare() {
-    if (!navigator.share) {
-      copyLink();
-      return;
-    }
-    navigator
-      .share({ title: document.title, text: C.shareText, url: location.href })
-      .catch(function (err) {
-        if (err && err.name === "AbortError") return;
-        copyLink();
-      });
-  }
-
-  function renderShare() {
-    return section("share", L.shareTitle, [
-      h("div", { class: "share" }, [
-        h("button", { type: "button", class: "btn btn--primary", text: L.shareButton, onclick: onShare }),
-      ]),
     ]);
   }
 
@@ -578,8 +528,6 @@
       renderNotice(),
       renderGallery(),
       renderAccounts(),
-      renderContact(),
-      renderShare(),
       renderFooter(),
     ]
       .concat(renderBgm())

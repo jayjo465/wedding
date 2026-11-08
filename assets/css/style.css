@@ -487,43 +487,6 @@ button {
   grid-row: 1 / span 2;
 }
 
-/* ---------- 7. 연락하기 ---------- */
-.contact {
-  display: grid;
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.contact__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 18px;
-  background: var(--surface);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow);
-}
-
-.contact__name {
-  font-family: var(--serif);
-  font-size: 15px;
-  letter-spacing: 0.04em;
-}
-
-.contact__btns {
-  display: flex;
-  gap: 8px;
-}
-
-/* ---------- 8. 공유하기 ---------- */
-.share {
-  display: flex;
-  justify-content: center;
-}
-
 /* ---------- 버튼 ---------- */
 .btn {
   display: inline-flex;
@@ -713,21 +676,11 @@ button {
   outline-offset: -2px;
 }
 
-/* ---------- 섹션 단위로 부드럽게 맞춰지는 스크롤 ----------
-   proximity: 섹션 시작 근처에서 멈출 때만 자석처럼 맞춰져서, 긴 섹션을 읽는 데 방해가 없습니다. */
+/* ---------- 메뉴 이동 시 부드러운 스크롤 ----------
+   자동 스냅(scroll-snap)은 커버에서 살짝 내릴 때 다시 위로 끌어당겨 움직임이 부자연스러워 사용하지 않습니다. */
 html {
   scroll-padding-top: 48px;
   scroll-behavior: smooth;
-}
-
-html:not(.is-locked) {
-  scroll-snap-type: y proximity;
-}
-
-.cover,
-.section,
-.footer {
-  scroll-snap-align: start;
 }
 
 /* ---------- 포커스 표시 (키보드 접근성) ---------- */

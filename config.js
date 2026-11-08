@@ -26,7 +26,7 @@ window.WEDDING_CONFIG = {
 
   /* 예식 정보 — showTime / showVenue 가 false 면 해당 정보는 공개하지 않습니다 */
   wedding: {
-    date: "2027-05-15", // 샘플 날짜 (YYYY-MM-DD)
+    date: "2027-12-12", // 샘플 날짜 (YYYY-MM-DD)
     showTime: false,
     time: "낮 12시",
     showVenue: false,
@@ -48,13 +48,7 @@ window.WEDDING_CONFIG = {
      assets/data/gallery.json 이 갱신되어 자동으로 보입니다. 이미지는 WebP 권장 (3:4 비율) */
   galleryFile: "./assets/data/gallery.json",
 
-  /* 연락처 */
-  contacts: {
-    groom: { name: "[신랑 이름]", phone: "010-0000-0000" },
-    bride: { name: "[신부 이름]", phone: "010-0000-0000" },
-  },
-
-  /* 마음 전하실 곳 — 기본값 false: 계좌 대신 "개별 연락" 안내와 연락하기 버튼만 보여 줍니다.
+  /* 마음 전하실 곳 — 기본값 false: 계좌 대신 "개별 연락" 안내 문구만 보여 줍니다.
      true 로 바꾸면 아래 accounts 목록이 아코디언으로 나옵니다. 공개 저장소이므로 실제 계좌는 넣지 마세요. */
   showAccounts: true,
   /* 계좌 목록은 별도 파일에서 불러옵니다 (showAccounts 가 true 일 때만 읽음) */
@@ -63,8 +57,7 @@ window.WEDDING_CONFIG = {
   /* 배경음악 — src 를 비워 두면 토글 버튼이 나타나지 않습니다. 기본값은 항상 OFF(자동재생 없음) */
   bgm: { src: "" },
 
-  /* 공유 문구 / 푸터 */
-  shareText: "조지훈 · 유희연의 결혼 소식을 전합니다.",
+  /* 푸터 */
   footer: "감사합니다. 행복하게 살겠습니다.",
 
   /* 상단 메뉴바에 보일 짧은 이름 (섹션 id 기준). 비워 두면 섹션 제목을 그대로 씁니다 */
@@ -73,8 +66,6 @@ window.WEDDING_CONFIG = {
     notice: "안내",
     gallery: "갤러리",
     accounts: "마음 전하기",
-    contact: "연락",
-    share: "공유",
   },
 
   /* 섹션 제목과 버튼 문구 */
@@ -95,19 +86,12 @@ window.WEDDING_CONFIG = {
     accountsTitle: "마음 전하실 곳",
     accountsLead: "직접 전하기 어려우신 분들을 위해 계좌번호를 남겨 둡니다.",
     accountsNote: "마음을 전하고 싶으신 분은 개별로 연락 주세요.",
-    accountsContact: "연락하기",
     groomSide: "신랑측",
     brideSide: "신부측",
     owner: "예금주",
     copy: "복사",
     copied: "계좌번호를 복사했습니다",
     copyFailed: "복사에 실패했습니다. 번호를 직접 선택해 주세요",
-    contactTitle: "연락하기",
-    call: "전화",
-    text: "문자",
-    shareTitle: "공유하기",
-    shareButton: "청첩장 공유하기",
-    linkCopied: "링크를 복사했습니다",
     bgmOn: "배경음악 끄기",
     bgmOff: "배경음악 켜기",
     bgmError: "음악을 재생할 수 없습니다",
