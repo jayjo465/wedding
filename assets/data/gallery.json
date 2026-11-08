@@ -1,26 +1,12 @@
 [
-  {
-    "src": "./assets/img/gallery/IMG_0820.jpg",
-    "alt": "웨딩 사진 1"
-  },
-  {
-    "src": "./assets/img/gallery/IMG_0826.jpg",
-    "alt": "웨딩 사진 2"
-  },
-  {
-    "src": "./assets/img/gallery/IMG_0827.jpg",
-    "alt": "웨딩 사진 3"
-  },
-  {
-    "src": "./assets/img/gallery/IMG_0829.jpg",
-    "alt": "웨딩 사진 4"
-  },
-  {
-    "src": "./assets/img/gallery/IMG_0830.jpg",
-    "alt": "웨딩 사진 5"
-  },
-  {
-    "src": "./assets/img/gallery/IMG_0834.jpg",
-    "alt": "웨딩 사진 6"
-  }
+  { "src": "./assets/img/gallery/IMG_0856.jpg", "alt": "웨딩 사진 1" },
+  { "src": "./assets/img/gallery/IMG_0857.jpg", "alt": "웨딩 사진 2" },
+  { "src": "./assets/img/gallery/IMG_0858.jpg", "alt": "웨딩 사진 3" },
+  { "src": "./assets/img/gallery/IMG_0859.jpg", "alt": "웨딩 사진 4" },
+  { "src": "./assets/img/gallery/IMG_0860.jpg", "alt": "웨딩 사진 5" },
+  { "src": "./assets/img/gallery/IMG_0861.jpg", "alt": "웨딩 사진 6" },
+  { "src": "./assets/img/gallery/IMG_0862.jpg", "alt": "웨딩 사진 7" },
+  { "src": "./assets/img/gallery/IMG_0863.jpg", "alt": "웨딩 사진 8" },
+  { "src": "./assets/img/gallery/IMG_0864.jpg", "alt": "웨딩 사진 9" },
+  { "src": "./assets/img/gallery/IMG_0865.jpg", "alt": "웨딩 사진 10" }
 ]
