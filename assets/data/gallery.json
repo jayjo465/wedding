@@ -1,26 +1,26 @@
 [
   {
-    "src": "./assets/img/gallery/gallery-01.webp",
+    "src": "./assets/img/gallery/IMG_0820.jpg",
     "alt": "웨딩 사진 1"
   },
   {
-    "src": "./assets/img/gallery/gallery-02.webp",
+    "src": "./assets/img/gallery/IMG_0826.jpg",
     "alt": "웨딩 사진 2"
   },
   {
-    "src": "./assets/img/gallery/gallery-03.webp",
+    "src": "./assets/img/gallery/IMG_0827.jpg",
     "alt": "웨딩 사진 3"
   },
   {
-    "src": "./assets/img/gallery/gallery-04.webp",
+    "src": "./assets/img/gallery/IMG_0829.jpg",
     "alt": "웨딩 사진 4"
   },
   {
-    "src": "./assets/img/gallery/gallery-05.webp",
+    "src": "./assets/img/gallery/IMG_0830.jpg",
     "alt": "웨딩 사진 5"
   },
   {
-    "src": "./assets/img/gallery/gallery-06.webp",
+    "src": "./assets/img/gallery/IMG_0834.jpg",
     "alt": "웨딩 사진 6"
   }
 ]
