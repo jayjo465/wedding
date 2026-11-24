@@ -226,6 +226,35 @@ button {
   margin-top: 8px;
 }
 
+/* ---------- 2-1. 예식 장소 ---------- */
+.venue {
+  text-align: center;
+}
+
+.venue__name {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.venue__addr {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* 작은 지도 미리보기 */
+.venue__map {
+  display: block;
+  width: 100%;
+  height: 220px;
+  margin-top: 24px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: #EDE8E1;
+}
+
 /* ---------- 3. 안내 ---------- */
 .notice {
   padding: 36px 24px;

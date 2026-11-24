@@ -128,6 +128,29 @@
     ]);
   }
 
+  /* ---------- 2-1. 예식 장소 (인사말과 안내 사이) ---------- */
+  /* wedding.venue 가 비어 있으면 섹션을 숨기고, mapEmbed 가 있으면 작은 구글 지도 미리보기를 보여 줍니다 */
+  function renderVenue() {
+    if (!C.wedding.venue) return null;
+
+    var kids = [h("p", { class: "venue__name", text: C.wedding.venue })];
+    if (C.wedding.venueAddress) kids.push(h("p", { class: "venue__addr", text: C.wedding.venueAddress }));
+    if (C.wedding.mapEmbed) {
+      kids.push(
+        h("iframe", {
+          class: "venue__map",
+          src: C.wedding.mapEmbed,
+          title: C.wedding.venue + " " + L.venueMap,
+          loading: "lazy",
+          referrerpolicy: "no-referrer-when-downgrade",
+          allowfullscreen: true,
+        })
+      );
+    }
+
+    return section("venue", L.venueTitle, [h("div", { class: "notice venue" }, kids)]);
+  }
+
   /* ---------- 3. 안내 ---------- */
   function renderNotice() {
     return section("notice", L.noticeTitle, [h("div", { class: "notice" }, paragraphs(C.notice))]);
@@ -525,6 +548,7 @@
     [
       renderCover(wd),
       renderGreeting(),
+      renderVenue(),
       renderNotice(),
       renderGallery(),
       renderAccounts(),

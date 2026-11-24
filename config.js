@@ -26,11 +26,15 @@ window.WEDDING_CONFIG = {
 
   /* 예식 정보 — showTime / showVenue 가 false 면 해당 정보는 공개하지 않습니다 */
   wedding: {
-    date: "2026-12-11", // 샘플 날짜 (YYYY-MM-DD)
+    date: "2026-12-12", // 예식 날짜 (YYYY-MM-DD)
     showTime: false,
     time: "낮 12시",
     showVenue: false,
-    venue: "[예식장 이름]",
+    venue: "도쿄한인성당", // 장소 이름 (비우면 장소 섹션이 숨겨짐)
+    venueAddress: "", // 주소 (비워 두면 표시 안 함)
+    /* 작은 구글 지도 미리보기 (비우면 지도 숨김).
+       구글 지도 > 공유 > '지도 퍼가기'에서 나온 <iframe src="..."> 안의 주소만 붙여 넣습니다 */
+    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.5056840245506!2d139.7241545757886!3d35.71378007257691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d05d73fffff%3A0xec4b323afcdec009!2z64-E7L-E7ZWc7J247ISx64u5!5e0!3m2!1sko!2sjp!4v1795510156154!5m2!1sko!2sjp",
   },
 
   /* 인사말 — 빈 줄(줄바꿈 두 번)은 문단 구분, 한 줄 바꿈은 줄바꿈으로 표시됩니다 */
@@ -63,6 +67,7 @@ window.WEDDING_CONFIG = {
   /* 상단 메뉴바에 보일 짧은 이름 (섹션 id 기준). 비워 두면 섹션 제목을 그대로 씁니다 */
   navLabels: {
     greeting: "인사말",
+    venue: "장소",
     notice: "안내",
     gallery: "갤러리",
     accounts: "마음 전하기",
@@ -75,6 +80,8 @@ window.WEDDING_CONFIG = {
     navLabel: "바로가기 메뉴",
     greetingTitle: "인사말",
     noticeTitle: "안내",
+    venueTitle: "예식 장소",
+    venueMap: "위치 지도",
     galleryTitle: "갤러리",
     galleryOpen: "사진 크게 보기",
     galleryPage: "사진 묶음",
